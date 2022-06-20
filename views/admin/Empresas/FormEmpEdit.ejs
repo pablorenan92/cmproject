@@ -1,0 +1,156 @@
+<%- include('../../partials/headerMain.ejs')%> 
+    <body class="sb-nav-fixed">
+        <%- include('../../partials/navbarHorizon.ejs')%> 
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <%- include('../../partials/navbarVertical.ejs')%> 
+            </div>
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4">Cadastro de Empresas</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item"><a href="/home">Home</a></li>
+                            <li class="breadcrumb-item active">Empresas/ Edit</li>
+                        </ol>
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <p class="mb-0">
+                                    <nav>
+                                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                          <button class="nav-link disabled" id="CadEdit-tab" data-bs-toggle="tab" data-bs-target="#CadEdit" type="button" role="tab" aria-controls="nav-home" aria-selected="false">Pesquisa</button>
+                                          <button class="nav-link active" id="CadNew-tab" data-bs-toggle="tab" data-bs-target="#CadNew" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Cadastro</button>
+                                        </div>
+                                    </nav>
+                                    <div class="tab-content tabCont" id="nav-tabContent">
+                                        <div class="tab-pane fade disabled" id="CadEdit" role="tabpanel" aria-labelledby="CadEdit-tab">
+                                            
+                                        </div>
+                                        <div class="tab-pane fade show active" id="CadNew" role="tabpanel" aria-labelledby="CadNew-tab">
+                                            <form class="form-containerNew" method="POST" action="/Empresas/update">
+                                                <div class="container">
+                                                    <div class="card-body">
+                                                        <input type="hidden" name="id" value="<%= Empresas.id %>">
+                                                        <div class="row">
+                                                            <div class="col order-first">
+                                                                
+                                                                <label for="CompCodIbge"><b>IBGE:</b></label>
+                                                                <input class="form-control" type="text" name="CompCodIbge" value="<%= Empresas.CompCodIbge %>" id="IBGE">
+                                                            </div>
+                                                            <div class="col">
+                                                                <label for="TipEmpDesc"><b>Tipo:</b></label>
+                                                                    <select class="form-select" name="TipEmpDesc" aria-label="Default select example">
+                                                                        <option disabled selected>Tipo Empresa</option>
+                                                                        <% TipEmp.forEach((TipEmp) => { %>
+                                                                            <% if (TipEmp.id == Empresas.RegTipEmpId) { %>
+                                                                                <option value="<%= TipEmp.id %>" selected><%= TipEmp.TipEmpDesc %></option>
+                                                                            <% } else { %>
+                                                                            <option value="<%=TipEmp.id %>"><%= TipEmp.TipEmpDesc %></option>
+                                                                            <% } %>
+                                                                        <% }) %>
+                                                                    </select><br> 
+                                                            </div>
+                                                            <div class="col order-last">
+                                                                <br>
+                                                                <div class="form-check form-switch">
+                                                                    <label class="form-check-label" for="CompDefault">Padrão</label>
+                                                                    <input class="form-check-input" type="checkbox" role="switch" name="CompDefault">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                            <label for="CompName"><b>Razão Social:</b></label>
+                                                            <input class="form-control" type="text" name="CompName" value="<%= Empresas.CompName %>"><br>
+                                                            <div class="row">
+                                                                <div class="col-sm-5 col-md-6">
+                                                                    <label for="CompCnpj"><b>Cnpj:</b></label>
+                                                                    <input class="form-control" type="text" name="CompCnpj" autocomplete="off" value="<%= Empresas.CompCnpj %>" id="CNPJ">
+                                                                </div>
+                                                                <div class="col-sm-5 offset-sm-2 col-md-6 offset-md-0">
+                                                                    <label for="CompInsEst"><b>Inscrição Estadual(IE):</b></label>
+                                                                    <input class="form-control" type="text" name="CompInsEst" autocomplete="off" value="<%= Empresas.CompInsEst %>" id="IE"><br>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-5 col-md-6">
+                                                                    <label for="CompCep"><b>CEP:</b></label>
+                                                                    <input class="form-control CepDesc" type="text" name="CompCep" autocomplete="off" value="<%= Empresas.CompCep %>" id="CEP">
+                                                                </div>
+                                                                <div class="col-sm-5 offset-sm-2 col-md-6 offset-md-0">
+                                                                    <label for="LogradName"><b>Logradouro:</b></label>
+                                                                    <select class="form-select" name="LogradName" aria-label="Default select example">
+                                                                        <option disabled selected>Logradouro</option>
+                                                                        <% Lograd.forEach((Lograd) => { %>
+                                                                            <% if (Lograd.id == Empresas.RegLogradId) { %>
+                                                                                <option value="<%= Lograd.id %>" selected><%= Lograd.LogradName%></option>
+                                                                            <% } else { %>
+                                                                                <option value="<%= Lograd.id %>"><%= Lograd.LogradName%></option>
+                                                                            <% } %>
+                                                                        <% }) %>
+                                                                    </select><br>                              
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-5 col-md-6">
+                                                                    <label for="BairroName"><b>Bairro:</b></label>
+                                                                    <select class="form-select" name="BairroName" aria-label="Default select example">
+                                                                        <option disabled selected>Bairro</option>
+                                                                        <% Bairros.forEach((Bairro) => { %>
+                                                                            <% if (Bairro.id == Empresas.RegBairroId) { %>
+                                                                                <option value="<%= Bairro.id %>" selected><%= Bairro.BairroName%></option>
+                                                                            <% } else { %>
+                                                                                <option value="<%= Bairro.id %>"><%= Bairro.BairroName%></option>
+                                                                            <% } %>
+                                                                        <% }) %>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-sm-5 offset-sm-2 col-md-6 offset-md-0">
+                                                                    <label for="CitName"><b>Cidade:</b></label>
+                                                                    <select class="form-select" name="CitName" aria-label="Default select example">
+                                                                        <option disabled selected>Cidade</option>
+                                                                        <% Cidades.forEach((Cidade) => { %>
+                                                                            <% if (Cidade.id == Empresas.RegCidadeId) { %>
+                                                                                <option value="<%= Cidade.id %>" selected><%= Cidade.CitName%></option>
+                                                                            <% } else { %>
+                                                                                <option value="<%= Cidade.id %>"><%= Cidade.CitName%></option>
+                                                                            <% } %>
+                                                                        
+                                                                        <% }) %>
+                                                                    </select><br>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col order-first">
+                                                                    <label for="CompNum"><b>Número:</b></label>
+                                                                    <input class="form-control" type="text" name="CompNum" autocomplete="off" value="<%= Empresas.CompNum %>">
+                                                                </div>
+                                                                <div class="col">
+                                                                    <label for="CompTel"><b>Telefone:</b></label>
+                                                                    <input class="form-control" type="text" name="CompTel" autocomplete="off" value="<%= Empresas.CompTel %>" id="COMERCIAL">  
+                                                                </div>
+                                                                <div class="col order-last">
+                                                                    <label for="CompTelCel"><b>Celular:</b></label>
+                                                                    <input class="form-control" type="text" name="CompTelCel" autocomplete="off" value="<%= Empresas.CompTelCel %>" id="CELULAR"><br>
+                                                                </div>
+                                                            </div>
+                                                            <div class="d-grid">
+                                                                <button type="submit" class="btn btn-success btn-block">
+                                                                    Atualizar
+                                                                </button><br>
+                                                            <button href="/Admin/Empresas" class="btn btn-danger btn-block">
+                                                                    Cancelar
+                                                            </button>
+                                                        </div>
+                                                    </div> 
+                                                </div>       
+                                            </form>
+                                        </div> 
+                                    </div>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+                <%- include('../../partials/footer.ejs')%> 
+            </div>
+        </div>
+<%- include('../../partials/footerScript.ejs')%> 

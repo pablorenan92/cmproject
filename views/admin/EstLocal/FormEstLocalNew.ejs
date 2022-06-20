@@ -1,0 +1,78 @@
+<%- include('../../partials/headerMain.ejs')%> 
+    <body class="sb-nav-fixed">
+        <%- include('../../partials/navbarHorizon.ejs')%> 
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <%- include('../../partials/navbarVertical.ejs')%> 
+            </div>
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4">Cadastro de Localização</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item"><a href="/home">Home</a></li>
+                            <li class="breadcrumb-item active">Tipo Localização</li>
+                        </ol>
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <p class="mb-0">
+                                    <nav>
+                                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                          <button class="nav-link" id="CadEdit-tab" data-bs-toggle="tab" data-bs-target="#CadEdit" type="button" role="tab" aria-controls="nav-home" aria-selected="false">Pesquisa</button>
+                                          <button class="nav-link active" id="CadNew-tab" data-bs-toggle="tab" data-bs-target="#CadNew" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Cadastro</button>
+                                        </div>
+                                    </nav>
+                                    <div class="tab-content tabCont" id="nav-tabContent">
+                                        <div class="tab-pane fade" id="CadEdit" role="tabpanel" aria-labelledby="CadEdit-tab">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Id</th>
+                                                        <th>Descrição</th>
+                                                        <th>Ações</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <% EstLocal.forEach(EstLocal => { %>
+                                                        <!--Linha-->
+                                                        <tr>
+                                                            <!--Coluna-->
+                                                            <td><%= EstLocal.id %></td>
+                                                            <td><%= EstLocal.EstLocalDesc %></td>
+                                                            <td>
+                                                                <a href="/admin/EstLocal/Edit/<%= EstLocal.id %>" class="btn btn-warning">
+                                                                    <i class="bi bi-pencil-square"></i>
+                                                                </a>
+                                                                <form method="POST" action="/EstLocal/delete" style="display: inline;" onsubmit="confirmarDelecao(event, this)">
+                                                                    <input type="hidden" name="id" value="<%= EstLocal.id %>">
+                                                                    <%- include('../../partials/btn_Danger.ejs')%> 
+                                                                </form>
+                                                            </td>
+                                                        </tr>
+                                                    <% }) %>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="tab-pane fade show active" id="CadNew" role="tabpanel" aria-labelledby="CadNew-tab">
+                                            <form class="form-containerNew"method="POST" action="/EstLocal/Save">
+                                                <div class="container">
+                                                    <div class="card-body">
+                                                        <label for="EstLocalDesc"><b>Tipo de Localização:</b></label>
+                                                        <input class="form-control" type="text" name="EstLocalDesc" placeholder="Descreva o tipo da localização."><br>
+                                                        <div class="d-grid">
+                                                            <%- include('../../partials/btn_Success.ejs')%> 
+                                                        </div>    
+                                                    </div>
+                                                </div>                                       
+                                            </form>
+                                        </div> 
+                                    </div>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+                <%- include('../../partials/footer.ejs')%> 
+            </div>
+        </div>
+<%- include('../../partials/footerScript.ejs')%>   

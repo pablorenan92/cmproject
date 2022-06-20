@@ -1,0 +1,68 @@
+<%- include('../../partials/headerMain.ejs')%> 
+    <body class="sb-nav-fixed">
+        <%- include('../../partials/navbarHorizon.ejs')%> 
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <%- include('../../partials/navbarVertical.ejs')%> 
+            </div>
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4">Cadastro de Logradouro</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item"><a href="/home">Home</a></li>
+                            <li class="breadcrumb-item active">Logradouro</li>
+                        </ol>
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <p class="mb-0">
+                                    <nav>
+                                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                          <button class="nav-link disabled" id="CadEdit-tab" data-bs-toggle="tab" data-bs-target="#CadEdit" type="button" role="tab" aria-controls="nav-home" aria-selected="false">Pesquisa</button>
+                                          <button class="nav-link active" id="CadNew-tab" data-bs-toggle="tab" data-bs-target="#CadNew" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Cadastro</button>
+                                        </div>
+                                    </nav>
+                                    <div class="tab-content tabCont" id="nav-tabContent">
+                                        <div class="tab-pane fade disabled" id="CadEdit" role="tabpanel" aria-labelledby="CadEdit-tab">
+                                           
+                                        </div>
+                                        <div class="tab-pane fade show active" id="CadNew" role="tabpanel" aria-labelledby="CadNew-tab">
+                                            <form class="form-containerNew"method="POST" action="/Lograd/Save">
+                                                <div class="container">
+                                                    <div class="card-body">
+                                                        <label for="LogradName"><b>Descrição Logradouro:</b></label>
+                                                        <input type="hidden" name="id" value="<%= Lograd.id %>"><br>
+                                                        <input class="form-control" type="text" name="LogradName"  value="<%= Lograd.LogradName %>"><br>
+                                                        <label for="TipLograd"><b>Tipo:</b></label>
+                                                        <select class="form-select" name="TipLograd" aria-label="Default select example">
+                                                            <option disabled selected>Tipo</option>
+                                                            <% TipLograd.forEach((TipLograd) => { %>
+                                                                <% if (TipLograd.id == Lograd.RegTipLogradId) { %>
+                                                                    <option value="<%= TipLograd.id %>" selected><%= TipLograd.TipLogradDesc %></option>
+                                                                <% } else { %>
+                                                                <option value="<%= TipLograd.id %>"><%= TipLograd.TipLogradDesc %></option>
+                                                                <% } %>  
+                                                            <% }) %>
+                                                        </select><br>
+                                                        <div class="d-grid">
+                                                            <button type="submit" class="btn btn-success btn-block">
+                                                                Atualizar
+                                                            </button><br>
+                                                            <button href="/Admin/Lograd" class="btn btn-danger btn-block">
+                                                                Cancelar
+                                                            </button>
+                                                        </div> 
+                                                    </div>
+                                                </div>                                       
+                                            </form>
+                                        </div> 
+                                    </div>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+                <%- include('../../partials/footer.ejs')%> 
+            </div>
+        </div>
+<%- include('../../partials/footerScript.ejs')%>   
